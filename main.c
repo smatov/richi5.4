@@ -15,28 +15,37 @@
 #include <netdb.h>
 #include <fcntl.h>
 
-int strend(char *s, char *t){
-	while(*s!=*t) ++s;
-	if(*s=='\0')
+int strend(char *s, char *t) {
+	if (*t == '\0')
+		return 1;
+	if (*s == '\0')
 		return 0;
-	while(*s==*t&&*s!='\0')
-	{
+	int ct = 0;
+	while (*s)
 		s++;
+	while (*t) {
+		ct++;
 		t++;
 	}
-	if(*s!='\0'||*t!='\0') return 0;
-	return 1;
-
+	while (*s == *t&&ct>0) {
+		s--;
+		t--;
+		ct--;
+	}
+	if(ct==0) return 1;
+	return 0;
 
 }
 
 int main() {
-	char a[256];
-	char b[256];
-	strcpy(a,"vasyaabc");
-	strcpy(b,"abcde");
-	int x=strend(a,b);
-	printf("%d\n",x);
+	char *b = malloc(sizeof(char) * 50);
+	char *a = malloc(sizeof(char) * 50);
+	strcpy(a, "1");
+	strcpy(b, "");
+	int x = strend(a, b);
+	printf("%d\n", x);
+	free(a);
+	free(b);
 	return 0;
 
 }
