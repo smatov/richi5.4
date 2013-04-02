@@ -21,18 +21,22 @@ int strend(char *s, char *t) {
 	if (*s == '\0')
 		return 0;
 	int ct = 0;
-	while (*s)
+	int cs = 0;
+	while (*s) {
+		cs++;
 		s++;
+	}
 	while (*t) {
 		ct++;
 		t++;
 	}
-	while (*s == *t&&ct>0) {
+	while (*s == *t && ct > 0 && cs > 0) {
 		s--;
 		t--;
 		ct--;
 	}
-	if(ct==0) return 1;
+	if (ct == 0)
+		return 1;
 	return 0;
 
 }
@@ -40,8 +44,8 @@ int strend(char *s, char *t) {
 int main() {
 	char *b = malloc(sizeof(char) * 50);
 	char *a = malloc(sizeof(char) * 50);
-	strcpy(a, "1");
-	strcpy(b, "");
+	strcpy(a, "12");
+	strcpy(b, "121");
 	int x = strend(a, b);
 	printf("%d\n", x);
 	free(a);
